@@ -1,11 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Add</title>
+    <meta charset="UTF-8"></meta>
+    <title>Add Advert</title>
 </head>
-<h1>Add Advert</h1>
 <body>
+<h1>Advert</h1>
 
+<form action="/addadvert" th:object="${advert}" method="POST">
+    Header: <input type="text" th:field="${advert.header}"/>
+    Description: <input type="text" th:field="${advert.description}"/>
+    Price: <input type="text" th:field="${advert.price}"/>
+    Image URL: <input type="text" th:field="${advert.url}"/>
+    Category: <input type="text" th:field="${advert.categoryId}"/>
+    Location: <input type="text" th:field="${advert.locationId}"/>
+    UserId: <input type="text" th:field="${advert.userId}"/>
+    AdTypeId: <input type="text" th:field="${advert.adTypeId}"/>
+    AdventId: <input type="text" th:field="${advert.id}"/>
+    <input type="submit" value="Save Advert">
+</form>
 </body>
 </html>
+

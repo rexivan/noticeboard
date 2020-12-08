@@ -22,5 +22,9 @@ public ArrayList<Advert>advertList= new ArrayList<>();
         }
         return null;
     }
+
+    public void save(Advert advert) {
+        advertList.add(advert);
+    }
 }
 

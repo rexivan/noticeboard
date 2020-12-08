@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -24,6 +25,13 @@ public class NoticeboardController {
         return "home";
     }
 
+    @GetMapping("/addadvert")
+    public String addAdvert(Model model)   {
+        Advert advert = new Advert(0, "", "", 0, "", 0, 0, 0, 0);
+        model.addAttribute("advert", advert);
+        return "AddAdvert";
+    }
+
     @GetMapping("/advert/{id}")
     public String advert(Model model, @PathVariable int id) {
         Advert advert = advertRepository.findById(id);
@@ -34,4 +42,13 @@ public class NoticeboardController {
         return "advert";
     }
 
+    @PostMapping("/addadvert")
+    public String addAdvert(Model model, Advert advert)   {
+        if (advert != null)
+           System.out.println("Got post, header:" + advert.getHeader());
+        else
+            System.out.println("Got post, NULL!");
+        advertRepository.save(advert);
+        return "redirect:/";
+    }
 }
