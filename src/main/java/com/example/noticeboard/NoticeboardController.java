@@ -11,8 +11,8 @@ import java.util.List;
 @Controller
 public class NoticeboardController {
 
-    @Autowired
-    private AdvertRepository advertRepository;
+//    @Autowired
+    private AdvertRepository advertRepository = new AdvertRepository();
 
     @GetMapping("/")
     public String home(Model model) {
