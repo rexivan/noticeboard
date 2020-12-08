@@ -25,13 +25,6 @@ public class NoticeboardController {
         return "home";
     }
 
-    @GetMapping("/addadvert")
-    public String addAdvert(Model model)   {
-        Advert advert = new Advert(0, "", "", 0, "", 0, 0, 0, 0);
-        model.addAttribute("advert", advert);
-        return "AddAdvert";
-    }
-
     @GetMapping("/advert/{id}")
     public String advert(Model model, @PathVariable int id) {
         Advert advert = advertRepository.findById(id);
@@ -40,6 +33,13 @@ public class NoticeboardController {
         User user = userRepository.findById(advert.getUserId());
         model.addAttribute("user", user);
         return "advert";
+    }
+
+    @GetMapping("/addadvert")
+    public String addAdvert(Model model)   {
+        Advert advert = new Advert(4, "", "", 0, "", 0, 0, 1, 0);
+        model.addAttribute("advert", advert);
+        return "AddAdvert";
     }
 
     @PostMapping("/addadvert")
