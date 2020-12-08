@@ -14,7 +14,7 @@
         <th>Description</th>
     </tr>
     <tr th:each="ad : ${advertList}">
-        <th><a th:href="'/ad/' + '/' + ${ad.id}" th:text="${ad.header}"></a></th>
+        <th><a th:href="'/advert/' + ${ad.id}" th:text="${ad.header}"></a></th>
         <th th:text="${ad.description}"></th>
     </tr>
 </table>

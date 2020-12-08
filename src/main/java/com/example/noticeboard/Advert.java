@@ -9,8 +9,10 @@ public class Advert {
     protected String url;
     protected int categoryId;
     protected int locationId;
+    protected int userId;
+    protected int adTypeId;
 
-    public Advert(int id, String header, String description, double price, String url, int categoryId, int locationId) {
+    public Advert(int id, String header, String description, double price, String url, int categoryId, int locationId, int userId, int adTypeId) {
         this.id = id;
         this.header = header;
         this.description = description;
@@ -18,6 +20,24 @@ public class Advert {
         this.url = url;
         this.categoryId = categoryId;
         this.locationId = locationId;
+        this.userId = userId;
+        this.adTypeId = adTypeId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getAdTypeId() {
+        return adTypeId;
+    }
+
+    public void setAdTypeId(int adTypeId) {
+        this.adTypeId = adTypeId;
     }
 
     public int getId() {
