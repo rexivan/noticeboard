@@ -1,5 +1,6 @@
 package com.example.noticeboard;
 
+/// Advert class holds main info about each advertice
 public class Advert {
 
     protected int id;
