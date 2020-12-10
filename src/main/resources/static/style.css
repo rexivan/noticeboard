@@ -12,4 +12,24 @@
     margin: 0 0 0 auto;
 }
 
+p.pos {
+  margin-top: 50px;
+}
+h1.posH {
+   margin-top: 200px
+}
+
+.formRow{
+    margin: 50px 0 0 0;
+
+
+}
+
+#signUpButton{
+    margin: 20px 0 0 0;
+}
+
+#signUpHeading{
+margin: 25px 0 0 0;
+}
 
