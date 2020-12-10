@@ -9,9 +9,16 @@
 <body>
 <center>
     <h4>Enter your email address below and we will send you a first time password</h4><br>
-    <form th:action="@{/signUp}" method="post">
-        <input type="text" placeholder="Email address"/><br><br>
-        <button id="button_login">Sign Up</button>
+    <form id="signUp" action="/checkEmail">
+        <input type="text" placeholder="Email address"><br>
+        <input type="button" onclick="myFunction()" value="Sign Up">
+    </form>
+
+    <script>
+      function myFunction() {
+        document.getElementById("signUp").submit();
+      }
+      </script>
     </form>
 </center>
 </body>

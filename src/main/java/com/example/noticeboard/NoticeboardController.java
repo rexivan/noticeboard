@@ -59,4 +59,9 @@ public class NoticeboardController {
         return "signUp";
 
     }
+
+    @GetMapping("/checkEmail")
+    public String checkEmail(){
+        return "checkEmail";
+    }
 }
