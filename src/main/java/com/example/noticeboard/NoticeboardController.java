@@ -69,4 +69,10 @@ public class NoticeboardController {
     public String myAdverts(){
         return "myadverts";
     }
+
+    @GetMapping("/changePwd")
+    public String changePwd(){
+        return "changePwd";
+    }
+
 }
