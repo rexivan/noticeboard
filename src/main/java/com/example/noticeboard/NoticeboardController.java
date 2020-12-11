@@ -12,12 +12,14 @@ import java.util.List;
 public class NoticeboardController {
 
     @Autowired
-    private AdvertRepository advertRepository = new AdvertRepository();
-    private UserRepository userRepository = new UserRepository();
+    private AdvertRepository advertRepository;// = new AdvertRepository();
+
+    @Autowired
+    private UserRepository userRepository;// = new UserRepository();
 
     @GetMapping("/")
     public String home(Model model) {
-        List<Advert> ads=advertRepository.advertList;
+        List<Advert> ads=advertRepository.getAdverts();
         model.addAttribute("advertList", ads);
         return "home";
     }
@@ -45,7 +47,7 @@ public class NoticeboardController {
            System.out.println("Got post, header:" + advert.getHeader());
         else
             System.out.println("Got post, NULL!");
-        advertRepository.save(advert);
+        advertRepository.addAdvert(advert);
         return "redirect:/";
     }
 
@@ -54,10 +56,15 @@ public class NoticeboardController {
         return "login";
     }
 
+    @GetMapping("/saveusers")
+    public String saveusers(){
+        userRepository.addUserlistoDB();
+        return "Users saved to DB";
+    }
+
     @GetMapping("/signUp")
     public String signUp(){
         return "signUp";
-
     }
 
     @GetMapping("/checkEmail")

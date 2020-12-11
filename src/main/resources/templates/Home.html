@@ -13,8 +13,9 @@
         <th>Description</th>
     </tr>
     <tr th:each="ad : ${advertList}">
-        <th><a th:href="'/advert/' + ${ad.id}" th:text="${ad.header}"></a></th>
-        <th th:text="${ad.description}"></th>
+        <th><a th:href="'/advert/' + ${ad.id}" th:text="${ad.header}" ></a></th>
+        <th th:text="${ad.description}" ></th>
+        <th><img th:src="${ad.url}" height=200/></th>
     </tr>
 </table>
 </div>
