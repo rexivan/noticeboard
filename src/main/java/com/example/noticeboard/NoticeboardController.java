@@ -71,4 +71,9 @@ public class NoticeboardController {
     public String checkEmail(){
         return "checkEmail";
     }
+
+    @GetMapping("/myadverts")
+    public String myAdverts(){
+        return "myadverts";
+    }
 }
