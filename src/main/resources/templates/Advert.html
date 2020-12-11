@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<head th:replace="fragments :: head" />
+<div th:replace="fragments :: navbar" />
 <body>
-<h1> You are interested in:</h1>
+<h1> Yuo are interested in:</h1>
 
+<div class="container">
+<!--
 <p th:text="${advert.header}" Header/>
 <p th:text="${advert.id}" - ID/>
 <p th:text="${advert.description}" - Description/>
@@ -22,6 +22,67 @@
 <p th:text="${user.lastName}" - Last name/>
 <p th:text="${user.email}" - Email/>
 <p th:text="${user.phone}" - Phone/>
-<img src="../car seat.jpg"/>
+-->
+
+
+
+
+
+    <!--Section: Block Content-->
+    <section class="mb-5">
+
+        <div class="row">
+            <div class="col-md-6 mb-4 mb-md-0">
+
+
+                <div class="col-12 mb-0">
+                    <figure class="view overlay rounded z-depth-1 main-img">
+                        <a href="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15a.jpg"
+                           data-size="710x823">
+                            <img src="../car seat.jpg"
+                                 class="img-fluid z-depth-1">
+                        </a>
+                    </figure>
+
+                </div>
+
+
+
+            </div>
+            <div class="col-md-6">
+
+                <h5 th:text="${advert.header}" Header/>
+
+                <p th:text="${advert.price}" - Price/></p>
+                <p th:text="${advert.description}" - Description/>
+                <div class="table-responsive">
+                    <table class="table table-sm table-borderless mb-0">
+                        <tbody>
+                        <tr>
+                            <th class="pl-0 w-25" scope="row"><strong>Location</strong></th>
+                            <td><p th:text="${advert.locationId}" - Location/></td>
+                        </tr>
+                        <tr>
+                            <th class="pl-0 w-25" scope="row"><strong>Category</strong></th>
+                            <td><p th:text="${advert.categoryId}" - Category/></td>
+                        </tr>
+                        <tr>
+                            <th class="pl-0 w-25" scope="row"><strong>Advert type</strong></th>
+                            <td>Advert type</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <hr>
+                <button type="button" class="btn btn-primary btn-md mr-1 mb-2">I'm interested</button>
+
+            </div>
+        </div>
+
+    </section>
+    <!--Section: Block Content-->
+
+</div>
+
 </body>
 </html>

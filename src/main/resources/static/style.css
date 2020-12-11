@@ -33,6 +33,30 @@ h1.posH {
 margin: 25px 0 0 0;
 }
 
+.adListObject{
+margin: 25px 0 10px 0;
+height: 150px;
+border-bottom: solid 1px lightgrey;
 
+}
 
+.adListContainer{
+margin-top: 100px;
+
+}
+
+.adListList{
+color: black;
+
+}
+
+.a:hover {
+   color: black;
+   text-decoration: underline;
+   text-decoration-color: black !important;
+ }
+
+ a, u {
+     text-decoration-color: black !important;
+ }
 
