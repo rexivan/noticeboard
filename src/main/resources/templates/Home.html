@@ -6,18 +6,31 @@
 
 <body>
     <div th:replace="fragments :: navbar" />
-<h1> Available ads:</h1>
-<table style="text-align:left">
-    <tr>
-        <th>Header</th>
-        <th>Description</th>
-    </tr>
-    <tr th:each="ad : ${advertList}">
-        <th><a th:href="'/advert/' + ${ad.id}" th:text="${ad.header}"></a></th>
-        <th th:text="${ad.description}"></th>
-    </tr>
-</table>
-</div>
+
+
+    <div class="container adListContainer">
+
+        <ul class="list-unstyled">
+
+            <div class="adListObject" th:each="ad : ${advertList}" th:href="'/advert/' + ${ad.id}" style="">
+                <a class="mt-0 mb-1" th:href="'/advert/' + ${ad.id}" >
+                <li class="media adListList">
+                <img class="mr-3" src="https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png" alt="Generic placeholder image" width="203" height="135">
+                <div class="media-body">
+                <h5 class="mt-0 mb-1" th:text="${ad.header}"></h5>
+
+                <p th:text="${ad.description}"></p>
+
+                </div>
+                <hr />
+            </div>
+
+            </li>
+            </a>
+
+        </ul>
+
+    </div>
 
 </body>
 </html>
