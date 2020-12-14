@@ -3,6 +3,9 @@
 
 <html lang="en">
 <head th:replace="fragments :: head" />
+<div th:replace="fragments :: navbar" />
+<body>
+<h1> Yuo are interested in:</h1>
 
 <body>
 <div th:replace="fragments :: navbar" />
@@ -68,11 +71,16 @@
                             <td>Advert type</td>
                         </tr>
                         </tbody>
-                    </table>
+                    </table><br>
+                    <form id="contactSeller" action="/contactSeller" >
+                    <input type = "button" id="contactSellerButton1" class="btn btn-primary btn-md mr-1 mb-2" onclick="anotherFunction()" value="I'm interested">
+                    </form>
+
+
+
+
                 </div>
                 <hr>
-                <button type="button" class="btn btn-primary btn-md mr-1 mb-2">I'm interested</button>
-
             </div>
         </div>
 
@@ -81,5 +89,18 @@
 
 </div>
 
+<script>
+                function myFunction() {
+                document.getElementById("contactSeller").submit();
+                }
+                function anotherFunction(){
+                document.getElementById("contactSeller").submit();
+                }
+                </script>
+
 </body>
 </html>
+
+
+
+

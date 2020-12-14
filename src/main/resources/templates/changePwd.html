@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: head" />
+<style>
+    body{
+     background-color: #f8f5f5;
+    }
+</style>
 <body>
 <div th:replace="fragments :: navbar" />
 
@@ -11,7 +16,7 @@
 
     </div>
     <div class="col-sm formRow">
-        <form action="/login" id="changePwd" >
+        <form action="/login" id="changePwd">
             <div class="form-group">
                 <label for="exampleInputPassword">Password</label>
                 <input type="password" class="form-control" id="exampleInputPassword" aria-describedby="passwordHelp" placeholder="Enter New Password" required>
