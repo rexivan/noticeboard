@@ -70,12 +70,10 @@
                         </tr>
                         </tbody>
                     </table><br>
-                    <form id="contactSeller" action="/contactSeller" >
-                    <input type = "button" id="contactSellerButton1" class="btn btn-primary btn-md mr-1 mb-2" onclick="anotherFunction()" value="I'm interested">
-                    </form>
 
+                    <button class="SendEmail btn btn-primary btn-md mr-1 mb-2">I am interested</button>
 
-
+                    <button class="btn btn-primary btn-md mr-1 mb-2" onclick="sendEmail();login();">I am interested...</button>
 
                 </div>
                 <hr>
@@ -87,14 +85,32 @@
 
 </div>
 
+
+
 <script>
-                function myFunction() {
-                document.getElementById("contactSeller").submit();
-                }
-                function anotherFunction(){
-                document.getElementById("contactSeller").submit();
-                }
-                </script>
+$(function () {
+      $('.SendEmail').click(function (event) {
+        var email = 'john.doe@hm.com';
+        var subject = 'Advert';
+        var emailBody = 'Hi,';
+        var attach = '';
+        document.location = "mailto:"+email+"?subject="+subject+"&body="+emailBody+
+            attach;
+      });
+    });
+</script>
+
+<script>
+function sendEmail()
+{
+    window.location = "mailto:xyz@abc.com";
+}
+</script>
+
+</script>
+
+
+
 
 </body>
 </html>
