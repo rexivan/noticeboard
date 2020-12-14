@@ -92,4 +92,9 @@ public class NoticeboardController {
         return "changePwd";
     }
 
+    @GetMapping("/contactSeller")
+    public String contactSeller(){
+        return "contactSeller";
+    }
+
 }
