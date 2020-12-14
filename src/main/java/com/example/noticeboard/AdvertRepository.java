@@ -23,10 +23,10 @@ public class AdvertRepository {
 
     public AdvertRepository() {
 
-        advertList.add(new Advert(1,"CarSeat for baby", "very nice car seat for baby up to 2 years", 299,"",0,0,1, 0));
-        advertList.add(new Advert(3,"Moped", "Använt men i gott skick! Bortskänkes, först till kvarn", 0,"",0,0 , 3, 0));
-        advertList.add(new Advert(2,"Fjällstuga i Åre uthyres", "Jättemysig stuga med 2 rok nära lift", 3000,"",0,0 , 2, 0));
-        advertList.add(new Advert(3,"Matbord", "Använt men i gott skick! Bortskänkes, först till kvarn", 0,"",0,0 , 3, 0));
+//        advertList.add(new Advert(1,"CarSeat for baby", "very nice car seat for baby up to 2 years", 299,"",0,0,1, 0));
+//        advertList.add(new Advert(3,"Moped", "Använt men i gott skick! Bortskänkes, först till kvarn", 0,"",0,0 , 3, 0));
+//        advertList.add(new Advert(2,"Fjällstuga i Åre uthyres", "Jättemysig stuga med 2 rok nära lift", 3000,"",0,0 , 2, 0));
+//        advertList.add(new Advert(3,"Matbord", "Använt men i gott skick! Bortskänkes, först till kvarn", 0,"",0,0 , 3, 0));
     }
 
     public List<Advert> getAdverts() {
@@ -42,6 +42,7 @@ public class AdvertRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        advertList = adverts;
         return adverts;
     }
 

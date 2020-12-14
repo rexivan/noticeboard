@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"></meta>
-    <title>Add Advert</title>
-</head>
-<body>
-<h1>Advert</h1>
 
-<form action="/addadvert" th:object="${advert}" method="POST">
+<html lang="en">
+<head th:replace="fragments :: head" />
+<body>
+<div th:replace="fragments :: navbar" />
+
+
+<!--<form action="/addadvert" th:object="${advert}" method="POST">
     Header: <input type="text" th:field="${advert.header}"/>
     Description: <input type="text" th:field="${advert.description}"/>
     Price: <input type="text" th:field="${advert.price}"/>
@@ -18,7 +18,43 @@
     AdTypeId: <input type="text" th:field="${advert.adTypeId}"/>
     AdventId: <input type="text" th:field="${advert.id}"/>
     <input type="submit" value="Save Advert">
-</form>
+</form>-->
+<div class="container">
+    <form action="/addadvert" th:object="${advert}" method="POST">
+        <div class="row">
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Header" th:field="${advert.header}">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Description" th:field="${advert.description}">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Price" th:field="${advert.price}">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Advert URL" th:field="${advert.url}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Category Id" th:field="${advert.categoryId}">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Location Id" th:field="${advert.locationId}">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="User Id" th:field="${advert.userId}">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Ad Type Id" th:field="${advert.adTypeId}">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Advert Id" th:field="${advert.id}">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
 </body>
 </html>
 
