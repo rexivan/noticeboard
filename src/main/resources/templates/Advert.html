@@ -3,10 +3,9 @@
 
 <html lang="en">
 <head th:replace="fragments :: head" />
-<div th:replace="fragments :: navbar" />
-<body>
-<h1> Yuo are interested in:</h1>
 
+<body>
+<div th:replace="fragments :: navbar" />
 <div class="container">
 <!--
 <p th:text="${advert.header}" Header/>
@@ -27,7 +26,6 @@
 
 
 
-
     <!--Section: Block Content-->
     <section class="mb-5">
 
@@ -37,10 +35,9 @@
 
                 <div class="col-12 mb-0">
                     <figure class="view overlay rounded z-depth-1 main-img">
-                        <a href="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15a.jpg"
-                           data-size="710x823">
-                            <img src="../car seat.jpg"
-                                 class="img-fluid z-depth-1">
+                        <a th:href="${advert.url}" data-size="710x823">
+                            <img th:src="${advert.url}" alt="hej" class="img-fluid z-depth-1" />
+
                         </a>
                     </figure>
 
