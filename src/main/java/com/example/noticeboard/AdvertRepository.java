@@ -20,7 +20,10 @@ public class AdvertRepository {
     private DataSource dataSource;
 
     public List<Advert> advertList= new ArrayList<>();
-
+    /*public List<String> advertTypeList = new ArrayList<>();
+    public List<String> advertLocationList = new ArrayList<>();
+    public List<String> advertCategoryList = new ArrayList<>();
+*/
     public AdvertRepository() {
 
 //        advertList.add(new Advert(1,"CarSeat for baby", "very nice car seat for baby up to 2 years", 299,"",0,0,1, 0));
@@ -58,7 +61,6 @@ public class AdvertRepository {
                 rs.getInt("adtypeid"));
     }
 
-
     public Advert findById(int id)   {
         for(Advert adv : advertList ) {
             if (id == adv.getId())
@@ -86,6 +88,31 @@ public class AdvertRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+
+
+   /* public void getAllLists()   {
+       // advertTypeList = readList("adtype");
+       // advertLocationList = readList("location");
+       // advertCategoryList = readList("category");
+    }
+*/
+    public List<String> readList(String listname)   {
+        List <String> aList = new ArrayList<>();
+        try (Connection conn = dataSource.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT name from "+listname)) {
+
+            while (rs.next()){
+                aList.add(rs.getString("name"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Exxception: " +e.getMessage());
+        }
+        return aList;
     }
 }
 

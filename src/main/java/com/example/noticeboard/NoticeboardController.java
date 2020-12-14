@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import java.io.LineNumberInputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -17,10 +19,19 @@ public class NoticeboardController {
 
     @Autowired
     private UserRepository userRepository;// = new UserRepository();
+
     //EmailClient emailClient = new EmailClient();
     @GetMapping("/")
     public String home(Model model) {
         List<Advert> ads=advertRepository.getAdverts();
+        //advertRepository.getAllLists();
+        List<String> advertTypeList  = advertRepository.readList("adtype");
+        List<String>  advertCategoryList = advertRepository.readList("category");
+        List<String>  advertLocationList = advertRepository.readList("location");
+
+        System.out.println("Number of types: " + advertTypeList.size());
+        System.out.println("Number of Categories: " + advertCategoryList.size());
+        System.out.println("Number of Locations: " + advertLocationList.size());
         model.addAttribute("advertList", ads);
         return "home";
     }
@@ -83,7 +94,7 @@ public class NoticeboardController {
        /* EmailClient.sendAsHtml("fredrik.bullsimonsen@hm.com", //"f.bull.simonsen@gmail.com",
                 "Test email - User activation",
                 "<h2>Java Mail Example</h2><p>hi there!</p>");*/
-        Mailer.send("XXXmilkcellobus@gmail.com", "XXX", "f.bull.simonsen@gmail.com", "Test", "This is a message");
+        Mailer.send("dogmilkcellobus@gmail.com", "mailify2020", "f.bull.simonsen@gmail.com", "Du har signat upp för en tjänst", "Ditt lösenord är secret123");
         return "redirect:/";
     }
 
