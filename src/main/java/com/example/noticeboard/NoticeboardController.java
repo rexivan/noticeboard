@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -71,7 +72,7 @@ public class NoticeboardController {
     public String login(){
         return "login";
     }
-
+*/
     @GetMapping("/saveusers")
     public String saveusers(){
         userRepository.addUserlistoDB();
@@ -95,10 +96,7 @@ public class NoticeboardController {
 
     @GetMapping("/sendmail") //TESTING...
         public String sendMail() throws MessagingException {
-       /* EmailClient.sendAsHtml("fredrik.bullsimonsen@hm.com", //"f.bull.simonsen@gmail.com",
-                "Test email - User activation",
-                "<h2>Java Mail Example</h2><p>hi there!</p>");*/
-        Mailer.send("dogmilkcellobus@gmail.com", "mailify2020", "f.bull.simonsen@gmail.com", "Du har signat upp för en tjänst", "Ditt lösenord är secret123");
+        Mailer.send("XXXmilkcellobus@gmail.com", "XXX", "f.bull.simonsen@gmail.com", "Du har signat upp för en tjänst", "Ditt lösenord är secret123");
         return "redirect:/";
     }
 
