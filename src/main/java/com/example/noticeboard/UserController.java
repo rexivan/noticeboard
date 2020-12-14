@@ -12,10 +12,12 @@ import java.util.List;
 
 @Controller
 public class UserController {
-    @GetMapping("/signUp")
+  /*  @GetMapping("/signUp")
     public String hello(HttpSession session, @RequestParam String username) {
         // set an attribute in the session
         session.setAttribute("username", username);
         return "signUp";
     }
+    */
+
 }
