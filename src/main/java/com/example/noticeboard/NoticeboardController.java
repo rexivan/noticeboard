@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -54,6 +55,16 @@ public class NoticeboardController {
 
     @GetMapping("/login")
     public String login(){
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String level1post(HttpSession session, @RequestParam String emailaddress, @RequestParam
+            String password){
+        if (emailaddress.equals("admin") && password.equals("123")) {
+            session.setAttribute("emailaddress", emailaddress);
+            return "secret";
+        }
         return "login";
     }
 
