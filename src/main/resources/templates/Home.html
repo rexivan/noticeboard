@@ -13,7 +13,7 @@
     <div th:replace="fragments :: navbar" />
 
 
-    <div class="container adListContainer">
+    <div class="container">
 
         <ul class="list-unstyled">
             <div class="adListObject" th:each="ad : ${advertList}" th:href="'/advert/' + ${ad.id}" style="">
