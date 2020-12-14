@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 @Controller
@@ -16,7 +17,7 @@ public class NoticeboardController {
 
     @Autowired
     private UserRepository userRepository;// = new UserRepository();
-
+    //EmailClient emailClient = new EmailClient();
     @GetMapping("/")
     public String home(Model model) {
         List<Advert> ads=advertRepository.getAdverts();
@@ -75,6 +76,15 @@ public class NoticeboardController {
     @GetMapping("/myadverts")
     public String myAdverts(){
         return "myadverts";
+    }
+
+    @GetMapping("/sendmail") //TESTING...
+        public String sendMail() throws MessagingException {
+       /* EmailClient.sendAsHtml("fredrik.bullsimonsen@hm.com", //"f.bull.simonsen@gmail.com",
+                "Test email - User activation",
+                "<h2>Java Mail Example</h2><p>hi there!</p>");*/
+        Mailer.send("XXXmilkcellobus@gmail.com", "XXX", "f.bull.simonsen@gmail.com", "Test", "This is a message");
+        return "redirect:/";
     }
 
     @GetMapping("/changePwd")
