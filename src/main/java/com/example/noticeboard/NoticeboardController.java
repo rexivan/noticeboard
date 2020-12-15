@@ -64,7 +64,7 @@ public class NoticeboardController {
         return "advert";
     }
 
-    @GetMapping("/addadvert")
+    @GetMapping("/AddAdvert")
     public String addAdvert(Model model)   {
         List<String> advertTypeList  = advertRepository.readList("adtype");
         List<String>  advertCategoryList = advertRepository.readList("category");
