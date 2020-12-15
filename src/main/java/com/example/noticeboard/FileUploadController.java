@@ -42,7 +42,7 @@ public class FileUploadController {
 
         model.addAttribute("files", storageService.loadAll().map(
                 path -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
-                        "serveFile", path.getFileName().toString()).build().toUri().toString())
+                            "serveFile", path.getFileName().toString()).build().toUri().toString())
                 .collect(Collectors.toList()));
 
         return "upload";
@@ -65,6 +65,9 @@ public class FileUploadController {
         System.out.println("*** File to upload:" + lastUploadedFile);
 
         storageService.store(file);
+        String localFileName = "C:\\Users\\frbul\\Documents\\noticeboard\\upload-dir\\"+ file.getOriginalFilename();
+       AzureBlob.uploadFileToBlobStorage("hfsgUsJdgDUYrIXc8OefW2iYDUzrxKY7Pps4OSg8DogrXv5DYLh0NQaXd9xYeHVbGoJcncqh7bC7ZDUC2Z2lag==",
+               localFileName, file.getOriginalFilename());
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
 

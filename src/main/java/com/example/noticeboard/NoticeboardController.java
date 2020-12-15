@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.*;
@@ -26,12 +25,12 @@ public class NoticeboardController {
     //EmailClient emailClient = new EmailClient();
     @GetMapping("/")
     public String home(Model model, HttpSession session) {
-        String username = (String) session.getAttribute("username");
+        String username = (String)session.getAttribute("username");
         if (username == null) {
             return "login";
         }
 
-        List<Advert> ads = advertRepository.getAdverts();
+        List<Advert> ads=advertRepository.getAdverts();
         //advertRepository.getAllLists();
 
         model.addAttribute("advertList", ads);
@@ -40,15 +39,15 @@ public class NoticeboardController {
 
     @GetMapping("/myadverts")
     public String myadvert(Model model, HttpSession session) {
-        String username = (String) session.getAttribute("username");
+        String username = (String)session.getAttribute("username");
         if (username == null) {
             return "login";
         }
-        List<Advert> ads = advertRepository.getMyAdverts(userRepository.userId);
+        List<Advert> ads=advertRepository.getMyAdverts(userRepository.userId);
         //advertRepository.getAllLists();
-        List<String> advertTypeList = advertRepository.readList("adtype");
-        List<String> advertCategoryList = advertRepository.readList("category");
-        List<String> advertLocationList = advertRepository.readList("location");
+        List<String> advertTypeList  = advertRepository.readList("adtype");
+        List<String>  advertCategoryList = advertRepository.readList("category");
+        List<String>  advertLocationList = advertRepository.readList("location");
 
 
         model.addAttribute("advertList", ads);
@@ -66,10 +65,10 @@ public class NoticeboardController {
     }
 
     @GetMapping("/AddAdvert")
-    public String addAdvert(Model model) {
-        List<String> advertTypeList = advertRepository.readList("adtype");
-        List<String> advertCategoryList = advertRepository.readList("category");
-        List<String> advertLocationList = advertRepository.readList("location");
+    public String addAdvert(Model model)   {
+        List<String> advertTypeList  = advertRepository.readList("adtype");
+        List<String>  advertCategoryList = advertRepository.readList("category");
+        List<String>  advertLocationList = advertRepository.readList("location");
         model.addAttribute("adtype", advertCategoryList);
         model.addAttribute("category", advertTypeList);
         model.addAttribute("location", advertLocationList);
@@ -80,9 +79,9 @@ public class NoticeboardController {
     }
 
     @PostMapping("/addadvert")
-    public String addAdvert(Model model, Advert advert) {
+    public String addAdvert(Model model, Advert advert)   {
         if (advert != null)
-            System.out.println("Got post, header:" + advert.getHeader());
+           System.out.println("Got post, header:" + advert.getHeader());
         else
             System.out.println("Got post, NULL!");
         advert.setUserId(userRepository.userId);
@@ -91,47 +90,47 @@ public class NoticeboardController {
     }
 
     @GetMapping("/saveusers")
-    public String saveusers() {
+    public String saveusers(){
         userRepository.addUserlistoDB();
         return "Users saved to DB";
     }
 
     @GetMapping("/signUp")
-    public String signUp() {
+    public String signUp(){
         return "signUp";
     }
 
     @GetMapping("/checkEmail")
-    public String checkEmail() {
+    public String checkEmail(){
         return "checkEmail";
     }
 
     @GetMapping("/sendmail") //TESTING...
-    public String sendMail() throws MessagingException {
+        public String sendMail() throws MessagingException {
         Mailer.send("XXXmilkcellobus@gmail.com", "XXX", "f.bull.simonsen@gmail.com", "Du har signat upp för en tjänst", "Ditt lösenord är secret123");
         return "redirect:/";
     }
 
     @GetMapping("/changePwd")
-    public String changePwd() {
+    public String changePwd(){
         return "changePwd";
     }
 
     @GetMapping("/contactSeller")
-    public String contactSeller() {
+    public String contactSeller(){
         return "contactSeller";
     }
 
     @GetMapping("/login")
-    public String level1() {
+    public String level1(){
         return "login";
     }
 
     @PostMapping("/login")
-    public String level1post(HttpSession session, @RequestParam String username, @RequestParam String password) {
+    public String level1post(HttpSession session, @RequestParam String username, @RequestParam String password){
         List<User> userList = userRepository.getUsers();
 
-        String usrname = (String) session.getAttribute("username");
+        String usrname = (String)session.getAttribute("username");
      /*   if (usrname == null) {
             session.removeAttribute("username"); // this would be an ok solution
             session.invalidate(); // you could also invalidate the whole session, a new session will be created the next request
@@ -140,9 +139,9 @@ public class NoticeboardController {
         }
         */
 
-        for (var usr : userList) {
-            System.out.println("User:" + usr.getEmail() + " Password: " + usr.getPassword());
-            if (usr.getEmail().equals(username) && usr.getPassword().equals(password)) {
+        for(var usr : userList)   {
+            System.out.println("User:" +usr.getEmail() + " Password: " +usr.getPassword());
+            if (usr.getEmail().equals(username) && usr.getPassword().equals(password))   {
                 session.setAttribute("username", username);
                 userRepository.userId = usr.getId();
                 return "redirect:/";
@@ -153,47 +152,47 @@ public class NoticeboardController {
         return "login";
     }
 
-    /*
-    package com.example.JavaWeb;
+/*
+package com.example.JavaWeb;
 
-    import org.springframework.stereotype.Controller;
-    import org.springframework.web.bind.annotation.GetMapping;
-    import org.springframework.web.bind.annotation.PostMapping;
-    import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-    import javax.servlet.http.Cookie;
-    import javax.servlet.http.HttpServletResponse;
-    import javax.servlet.http.HttpSession;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-    @Controller
-    public class Level2Controller {
+@Controller
+public class Level2Controller {
 
-        @GetMapping("/login")
-        public String level1(){
-            return "login";
+    @GetMapping("/login")
+    public String level1(){
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String level1post(HttpSession session, @RequestParam String username, @RequestParam String password){
+        if (username.equals("admin") && password.equals("123")) {
+            session.setAttribute("username", username);
+            return "secret";
         }
 
-        @PostMapping("/login")
-        public String level1post(HttpSession session, @RequestParam String username, @RequestParam String password){
-            if (username.equals("admin") && password.equals("123")) {
-                session.setAttribute("username", username);
-                return "secret";
-            }
+        return "login";
+    }
 
-            return "login";
+    @GetMapping("/secret")
+    public String level1(HttpSession session){
+        String username = (String)session.getAttribute("username");
+        if (username != null) {
+            return "secret";
         }
-
-        @GetMapping("/secret")
-        public String level1(HttpSession session){
-            String username = (String)session.getAttribute("username");
-            if (username != null) {
-                return "secret";
-            }
-            return "login";
-        }
-    */
+        return "login";
+    }
+*/
     @GetMapping("/logout")
-    public String logout(HttpSession session, HttpServletResponse res) {
+    public String logout(HttpSession session, HttpServletResponse res){
         doLogout(session, res);
         return "login";
     }
@@ -207,8 +206,6 @@ public class NoticeboardController {
     }
 
 }
-
-
 
 
 
