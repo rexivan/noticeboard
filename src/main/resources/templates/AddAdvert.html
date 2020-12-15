@@ -23,10 +23,7 @@
     <form action="/addadvert" th:object="${advert}" method="POST">
         <div class="row">
             <div class="col">
-                <input type="text" class="form-control" placeholder="Header" th:field="${advert.header}">
-            </div>
-            <div class="col">
-                <input type="text" class="form-control" placeholder="Description" th:field="${advert.description}">
+                <input type="text" class="form-control" placeholder="Title" th:field="${advert.header}">
             </div>
             <div class="col">
                 <input type="text" class="form-control" placeholder="Price" th:field="${advert.price}">
@@ -37,19 +34,26 @@
         </div>
         <div class="row">
             <div class="col">
+                <textarea type="text" class="form-control" placeholder="Description" th:field="${advert.description}" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
                 <input type="text" class="form-control" placeholder="Category Id" th:field="${advert.categoryId}">
             </div>
             <div class="col">
                 <input type="text" class="form-control" placeholder="Location Id" th:field="${advert.locationId}">
             </div>
             <div class="col">
-                <input type="text" class="form-control" placeholder="User Id" th:field="${advert.userId}">
+                <input type="text" class="form-control" placeholder="Dropdown" th:field="${advert.adTypeId}">
             </div>
-            <div class="col">
-                <input type="text" class="form-control" placeholder="Ad Type Id" th:field="${advert.adTypeId}">
+
             </div>
-            <div class="col">
+            <div class="col" hidden>
                 <input type="text" class="form-control" placeholder="Advert Id" th:field="${advert.id}">
+            </div>
+            <div class="col" hidden>
+                <input type="text" class="form-control" placeholder="User Id" th:field="${advert.userId}">
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
