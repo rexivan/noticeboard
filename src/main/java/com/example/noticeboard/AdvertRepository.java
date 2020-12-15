@@ -36,12 +36,27 @@ public class AdvertRepository {
         List<Advert> adverts = new ArrayList<>();
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT id, header, description, price, url, categoryid, locationid, userid, adtypeid FROM advert")) {
+             ResultSet rs = stmt.executeQuery("SELECT id, header, description, price, url, categoryid, locationid, userid, adtypeid FROM advert order by id desc")) {
 
             while (rs.next()){
                 adverts.add(rsAdvert(rs));
             }
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        advertList = adverts;
+        return adverts;
+    }
+
+    public List<Advert> getMyAdverts(int id)   {
+        List<Advert> adverts = new ArrayList<>();
+        try (Connection conn = dataSource.getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT id, header, description, price, url, categoryid, locationid, userid, adtypeid FROM advert where id = " + id + " order by id desc")) {
+           while (rs.next()){
+              adverts.add(rsAdvert(rs));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

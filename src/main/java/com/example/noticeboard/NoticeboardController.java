@@ -7,7 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.*;
 import java.util.List;
 
 @Controller
@@ -27,18 +30,28 @@ public class NoticeboardController {
             return "login";
         }
 
-
         List<Advert> ads=advertRepository.getAdverts();
+        //advertRepository.getAllLists();
+
+        model.addAttribute("advertList", ads);
+        return "home";
+    }
+
+    @GetMapping("/myadverts")
+    public String myadvert(Model model, HttpSession session) {
+        String username = (String)session.getAttribute("username");
+        if (username == null) {
+            return "login";
+        }
+        List<Advert> ads=advertRepository.getMyAdverts(userRepository.userId);
         //advertRepository.getAllLists();
         List<String> advertTypeList  = advertRepository.readList("adtype");
         List<String>  advertCategoryList = advertRepository.readList("category");
         List<String>  advertLocationList = advertRepository.readList("location");
 
-        System.out.println("Number of types: " + advertTypeList.size());
-        System.out.println("Number of Categories: " + advertCategoryList.size());
-        System.out.println("Number of Locations: " + advertLocationList.size());
+
         model.addAttribute("advertList", ads);
-        return "home";
+        return "myadverts";
     }
 
     @GetMapping("/advert/{id}")
@@ -53,6 +66,13 @@ public class NoticeboardController {
 
     @GetMapping("/addadvert")
     public String addAdvert(Model model)   {
+        List<String> advertTypeList  = advertRepository.readList("adtype");
+        List<String>  advertCategoryList = advertRepository.readList("category");
+        List<String>  advertLocationList = advertRepository.readList("location");
+        model.addAttribute("adtype", advertCategoryList);
+        model.addAttribute("category", advertTypeList);
+        model.addAttribute("location", advertLocationList);
+
         Advert advert = new Advert(4, "", "", 0, "", 0, 0, 1, 0);
         model.addAttribute("advert", advert);
         return "AddAdvert";
@@ -64,15 +84,11 @@ public class NoticeboardController {
            System.out.println("Got post, header:" + advert.getHeader());
         else
             System.out.println("Got post, NULL!");
+        advert.setUserId(userRepository.userId);
         advertRepository.addAdvert(advert);
         return "redirect:/";
     }
-/*
-    @GetMapping("/login")
-    public String login(){
-        return "login";
-    }
-*/
+
     @GetMapping("/saveusers")
     public String saveusers(){
         userRepository.addUserlistoDB();
@@ -87,11 +103,6 @@ public class NoticeboardController {
     @GetMapping("/checkEmail")
     public String checkEmail(){
         return "checkEmail";
-    }
-
-    @GetMapping("/myadverts")
-    public String myAdverts(){
-        return "myadverts";
     }
 
     @GetMapping("/sendmail") //TESTING...
@@ -117,16 +128,30 @@ public class NoticeboardController {
 
     @PostMapping("/login")
     public String level1post(HttpSession session, @RequestParam String username, @RequestParam String password){
-        System.out.println("Trying to login: " + username);
-        if (username.equals("admin@hm.com") && password.equals("123")) {
-            System.out.println("login OK! ");
-            session.setAttribute("username", username);
-            return "redirect:/";
+        List<User> userList = userRepository.getUsers();
+
+        String usrname = (String)session.getAttribute("username");
+     /*   if (usrname == null) {
+            session.removeAttribute("username"); // this would be an ok solution
+            session.invalidate(); // you could also invalidate the whole session, a new session will be created the next request
+            Cookie cookie = new Cookie("JSESSIONID", "");
+            cookie.setMaxAge(0);
         }
+        */
+
+        for(var usr : userList)   {
+            System.out.println("User:" +usr.getEmail() + " Password: " +usr.getPassword());
+            if (usr.getEmail().equals(username) && usr.getPassword().equals(password))   {
+                session.setAttribute("username", username);
+                userRepository.userId = usr.getId();
+                return "redirect:/";
+            }
+        }
+        System.out.println("User / password not found:" + username);
 
         return "login";
     }
-}
+
 /*
 package com.example.JavaWeb;
 
@@ -165,18 +190,22 @@ public class Level2Controller {
         }
         return "login";
     }
-
+*/
     @GetMapping("/logout")
     public String logout(HttpSession session, HttpServletResponse res){
+        doLogout(session, res);
+        return "login";
+    }
+
+    public void doLogout(HttpSession session, HttpServletResponse res) {
         session.removeAttribute("username"); // this would be an ok solution
         session.invalidate(); // you could also invalidate the whole session, a new session will be created the next request
         Cookie cookie = new Cookie("JSESSIONID", "");
         cookie.setMaxAge(0);
         res.addCookie(cookie);
-        return "login";
     }
+
 }
 
 
 
- */

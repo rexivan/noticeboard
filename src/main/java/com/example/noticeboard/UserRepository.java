@@ -15,6 +15,7 @@ public class UserRepository {
     private DataSource dataSource;
 
     public ArrayList<User> userList = new ArrayList<>();
+    public int userId=0;
 
     public List<User> getUsers() {
         List<User> books = new ArrayList<>();
@@ -37,7 +38,7 @@ public class UserRepository {
                 rs.getString("firstname"),
                 rs.getString("lastname"),
                 rs.getString("phone"),
-                rs.getString("password"));
+                rs.getString("pwd"));
     }
 
     public UserRepository() {
