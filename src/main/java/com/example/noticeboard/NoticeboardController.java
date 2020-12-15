@@ -39,6 +39,7 @@ public class NoticeboardController {
 
     @GetMapping("/myadverts")
     public String myadvert(Model model, HttpSession session) {
+
         String username = (String)session.getAttribute("username");
         if (username == null) {
             return "login";
@@ -53,7 +54,11 @@ public class NoticeboardController {
     }
 
     @GetMapping("/advert/{id}")
-    public String advert(Model model, @PathVariable int id) {
+    public String advert(Model model, @PathVariable int id, HttpSession session) {
+        String username = (String)session.getAttribute("username");
+        if (username == null) {
+            return "login";
+        }
         Advert advert = advertRepository.findById(id);
         model.addAttribute("advert", advert);
 
@@ -63,7 +68,11 @@ public class NoticeboardController {
     }
 
     @GetMapping("/AddAdvert")
-    public String addAdvert(Model model)   {
+    public String getaddAdvert(Model model, HttpSession session)   {
+        String username = (String)session.getAttribute("username");
+        if (username == null) {
+            return "login";
+        }
         List<String> advertTypeList  = advertRepository.readList("adtype");
         List<String>  advertCategoryList = advertRepository.readList("category");
         List<String>  advertLocationList = advertRepository.readList("location");
@@ -76,8 +85,12 @@ public class NoticeboardController {
         return "AddAdvert";
     }
 
-    @PostMapping("/addadvert")
-    public String addAdvert(Model model, Advert advert)   {
+    @PostMapping("/AddAdvert")
+    public String postaddAdvert(Model model, Advert advert, HttpSession session)   {
+        String username = (String)session.getAttribute("username");
+        if (username == null) {
+            return "login";
+        }
         if (advert != null)
            System.out.println("Got post, header:" + advert.getHeader());
         else
@@ -164,7 +177,8 @@ public class NoticeboardController {
         res.addCookie(cookie);
     }
     @GetMapping("/deleteadvert/{id}")
-    public String deleteAdd(Model model, @PathVariable int id) {
+    public String deleteAdd(Model model, @PathVariable int id, HttpSession session) {
+
         Advert advert = advertRepository.findById(id);
         if (advert.getUserId() == userRepository.userId) // Create by me...
             advertRepository.deleteAdvert(id);
