@@ -182,7 +182,7 @@ public class NoticeboardController {
         Advert advert = advertRepository.findById(id);
         if (advert.getUserId() == userRepository.userId) // Create by me...
             advertRepository.deleteAdvert(id);
-        return "redirect:/";
+        return "redirect:/myadverts";
     }
     @GetMapping("/banner")
     public String banner(){
