@@ -26,26 +26,71 @@
                 <input type="text" class="form-control" placeholder="Title" th:field="${advert.header}">
             </div>
             <div class="col">
+
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
                 <input type="text" class="form-control" placeholder="Price" th:field="${advert.price}">
             </div>
             <div class="col">
-                <input type="text" class="form-control" placeholder="Advert URL" th:field="${advert.url}">
+
+            </div>
+            <div class="col">
+
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="custom-file col ">
+                <input type="file" class="custom-file-input" id="customFile" th:field="${advert.url}">
+                <label class="custom-file-label" for="customFile">Choose file</label>
+            </div>
+            <div class="col">
+            </div>
+            <div class="col">
             </div>
         </div>
+
         <div class="row">
             <div class="col">
                 <textarea type="text" class="form-control" placeholder="Description" th:field="${advert.description}" rows="3"></textarea>
             </div>
+
         </div>
+
         <div class="row">
+
+
+
             <div class="col">
-                <input type="text" class="form-control" placeholder="Category Id" th:field="${advert.categoryId}">
+                <select class="form-control" th:field="${category}"  >
+                    <option value="0">select category</option>
+                    <option th:each="cat : ${category}" th:value="${cat}" th:text="${cat}"></option>
+                </select>
             </div>
+
+
+
+<!-- th:field="${advert.locationId}" -->
             <div class="col">
-                <input type="text" class="form-control" placeholder="Location Id" th:field="${advert.locationId}">
+                <select class="form-control" th:field="${location}" >
+                    <option value="0">select location</option>
+                    <option th:each="loc : ${location}" th:value="${loc}" th:text="${loc}"></option>
+                </select>
             </div>
+
+
             <div class="col">
-                <input type="text" class="form-control" placeholder="Dropdown" th:field="${advert.adTypeId}">
+                <select class="form-control" th:field="${adtype}" >
+                    <option value="0">select ad type</option>
+                    <option th:each="ad : ${adtype}" th:value="${ad}" th:text="${ad}"></option>
+                </select>
             </div>
 
             </div>
@@ -55,7 +100,13 @@
             <div class="col" hidden>
                 <input type="text" class="form-control" placeholder="User Id" th:field="${advert.userId}">
             </div>
+<<<<<<< HEAD
         <button type="submit" class="btn btn-primary">Save</button>
+=======
+
+        <button type="submit" class="btn btn-lg btn-secondary btn-block">Save</button>
+
+>>>>>>> 0d724d9f2144594d633dd3a67759e1d9b30fe29a
     </form>
 </div>
 </body>
