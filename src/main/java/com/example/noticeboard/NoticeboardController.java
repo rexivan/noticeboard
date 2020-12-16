@@ -184,6 +184,10 @@ public class NoticeboardController {
             advertRepository.deleteAdvert(id);
         return "redirect:/";
     }
+    @GetMapping("/banner")
+    public String banner(){
+        return "banner";
+    }
 }
 
 

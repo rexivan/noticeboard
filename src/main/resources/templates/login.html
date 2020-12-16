@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-
-<html lang="en">
 <head th:replace="fragments :: head" />
-
+<style>
+body {
+  background-color: #EFF1ED;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+</style>
+<body>
 <div th:replace="fragments :: navbar" />
 <!--<form action="/login" method="POST">-->
 <!--    Username: <input type="text" name="username"/>-->
