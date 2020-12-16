@@ -73,7 +73,7 @@ public class NoticeboardController {
         model.addAttribute("category", advertTypeList);
         model.addAttribute("location", advertLocationList);
 
-        Advert advert = new Advert(4, "", "", 0, "", 0, 0, 1, 0);
+        Advert advert = new Advert(4, "", "", 0, "", 1, 0, 1, 0);
         model.addAttribute("advert", advert);
         return "AddAdvert";
     }
