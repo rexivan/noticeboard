@@ -16,6 +16,7 @@ public class UserRepository {
 
     public ArrayList<User> userList = new ArrayList<>();
     public int userId=0;
+    public String userName="";
 
     public List<User> getUsers() {
         List<User> books = new ArrayList<>();

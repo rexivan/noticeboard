@@ -39,23 +39,26 @@ public class NoticeboardController {
 
     @GetMapping("/myadverts")
     public String myadvert(Model model, HttpSession session) {
+
         String username = (String)session.getAttribute("username");
         if (username == null) {
             return "login";
         }
         List<Advert> ads=advertRepository.getMyAdverts(userRepository.userId);
-        //advertRepository.getAllLists();
         List<String> advertTypeList  = advertRepository.readList("adtype");
         List<String>  advertCategoryList = advertRepository.readList("category");
         List<String>  advertLocationList = advertRepository.readList("location");
 
-
-        model.addAttribute("advertList", ads);
+         model.addAttribute("advertList", ads);
         return "myadverts";
     }
 
     @GetMapping("/advert/{id}")
-    public String advert(Model model, @PathVariable int id) {
+    public String advert(Model model, @PathVariable int id, HttpSession session) {
+        String username = (String)session.getAttribute("username");
+        if (username == null) {
+            return "login";
+        }
         Advert advert = advertRepository.findById(id);
         model.addAttribute("advert", advert);
 
@@ -65,7 +68,11 @@ public class NoticeboardController {
     }
 
     @GetMapping("/AddAdvert")
-    public String addAdvert(Model model)   {
+    public String getaddAdvert(Model model, HttpSession session)   {
+        String username = (String)session.getAttribute("username");
+        if (username == null) {
+            return "login";
+        }
         List<String> advertTypeList  = advertRepository.readList("adtype");
         List<String>  advertCategoryList = advertRepository.readList("category");
         List<String>  advertLocationList = advertRepository.readList("location");
@@ -78,8 +85,12 @@ public class NoticeboardController {
         return "AddAdvert";
     }
 
-    @PostMapping("/addadvert")
-    public String addAdvert(Model model, Advert advert)   {
+    @PostMapping("/AddAdvert")
+    public String postaddAdvert(Model model, Advert advert, HttpSession session)   {
+        String username = (String)session.getAttribute("username");
+        if (username == null) {
+            return "login";
+        }
         if (advert != null)
            System.out.println("Got post, header:" + advert.getHeader());
         else
@@ -152,45 +163,6 @@ public class NoticeboardController {
         return "login";
     }
 
-/*
-package com.example.JavaWeb;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-@Controller
-public class Level2Controller {
-
-    @GetMapping("/login")
-    public String level1(){
-        return "login";
-    }
-
-    @PostMapping("/login")
-    public String level1post(HttpSession session, @RequestParam String username, @RequestParam String password){
-        if (username.equals("admin") && password.equals("123")) {
-            session.setAttribute("username", username);
-            return "secret";
-        }
-
-        return "login";
-    }
-
-    @GetMapping("/secret")
-    public String level1(HttpSession session){
-        String username = (String)session.getAttribute("username");
-        if (username != null) {
-            return "secret";
-        }
-        return "login";
-    }
-*/
     @GetMapping("/logout")
     public String logout(HttpSession session, HttpServletResponse res){
         doLogout(session, res);
@@ -204,7 +176,14 @@ public class Level2Controller {
         cookie.setMaxAge(0);
         res.addCookie(cookie);
     }
+    @GetMapping("/deleteadvert/{id}")
+    public String deleteAdd(Model model, @PathVariable int id, HttpSession session) {
 
+        Advert advert = advertRepository.findById(id);
+        if (advert.getUserId() == userRepository.userId) // Create by me...
+            advertRepository.deleteAdvert(id);
+        return "redirect:/";
+    }
 }
 
 

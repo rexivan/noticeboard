@@ -26,10 +26,6 @@ public class AdvertRepository {
 */
     public AdvertRepository() {
 
-//        advertList.add(new Advert(1,"CarSeat for baby", "very nice car seat for baby up to 2 years", 299,"",0,0,1, 0));
-//        advertList.add(new Advert(3,"Moped", "Använt men i gott skick! Bortskänkes, först till kvarn", 0,"",0,0 , 3, 0));
-//        advertList.add(new Advert(2,"Fjällstuga i Åre uthyres", "Jättemysig stuga med 2 rok nära lift", 3000,"",0,0 , 2, 0));
-//        advertList.add(new Advert(3,"Matbord", "Använt men i gott skick! Bortskänkes, först till kvarn", 0,"",0,0 , 3, 0));
     }
 
     public List<Advert> getAdverts() {
@@ -53,7 +49,7 @@ public class AdvertRepository {
         List<Advert> adverts = new ArrayList<>();
         try (Connection conn = dataSource.getConnection();
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT id, header, description, price, url, categoryid, locationid, userid, adtypeid FROM advert where id = " + id + " order by id desc")) {
+            ResultSet rs = stmt.executeQuery("SELECT id, header, description, price, url, categoryid, locationid, userid, adtypeid FROM advert where userid = " + id + " order by id desc")) {
            while (rs.next()){
               adverts.add(rsAdvert(rs));
             }
@@ -84,10 +80,6 @@ public class AdvertRepository {
         return null;
     }
 
- /*   public void save(Advert advert) {
-        advertList.add(advert);
-    }
-*/
     public void addAdvert(Advert advert) {
         try (Connection conn = dataSource.getConnection(); //(url, header,  description, price, categoryId,  locationId, userId, adTypeId)
              PreparedStatement ps = conn.prepareStatement("INSERT INTO ADVERT(url, header,  description, price, categoryId,  locationId, userId, adTypeId) VALUES (?,?,?,?,?,?,?,?) ")) {
@@ -105,7 +97,21 @@ public class AdvertRepository {
         }
     }
 
-
+    public void updateAdvert(Advert advert, int id) {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("update ADVERT set url=?, header=?,  description=?, price=?, categoryId=?,  locationId=?, adTypeId=?  where id =" +id)) {
+             ps.setString(1, advert.getUrl());
+             ps.setString(2, advert.getHeader());
+             ps.setString(3, advert.getDescription());
+             ps.setDouble(4, advert.getPrice());
+             ps.setInt(5, advert.getCategoryId());
+             ps.setInt(6, advert.getLocationId());
+             ps.setInt(7, advert.getAdTypeId());
+             ps.executeUpdate();
+        } catch (SQLException e)  {
+        e.printStackTrace();
+        }
+    }
 
    /* public void getAllLists()   {
        // advertTypeList = readList("adtype");
@@ -128,6 +134,16 @@ public class AdvertRepository {
             System.out.println("Exxception: " +e.getMessage());
         }
         return aList;
+    }
+
+    public void deleteAdvert(int id)   {
+        try (Connection conn = dataSource.getConnection(); //(url, header,  description, price, categoryId,  locationId, userId, adTypeId)
+             PreparedStatement ps = conn.prepareStatement("DELETE FROM advert WHERE id=?")) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
 
