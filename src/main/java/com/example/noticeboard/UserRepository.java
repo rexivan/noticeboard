@@ -52,12 +52,12 @@ public class UserRepository {
      }
 
      public void addUserlistoDB()   {  // Test purpouse only...
-         for(var u : userList)
+         for(User   u : userList)
              addUser(u);
      }
 
     public User findById(int id)   {
-        for(var us: userList)   {
+        for(User  us: userList)   {
             if (id == us.getId())
                 return us;
         }

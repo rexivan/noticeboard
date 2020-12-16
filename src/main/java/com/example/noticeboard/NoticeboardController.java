@@ -34,7 +34,17 @@ public class NoticeboardController {
         //advertRepository.getAllLists();
 
         model.addAttribute("advertList", ads);
-        return "home";
+        return "Home";
+    }
+
+    @GetMapping("/fbs")
+    public String fbshome(Model model, HttpSession session) {
+
+        List<Advert> ads=advertRepository.getAdverts();
+        //advertRepository.getAllLists();
+
+        model.addAttribute("advertList", ads);
+        return "Home";
     }
 
     @GetMapping("/myadverts")
@@ -150,7 +160,7 @@ public class NoticeboardController {
         }
         */
 
-        for(var usr : userList)   {
+        for(User usr : userList)   {
             System.out.println("User:" +usr.getEmail() + " Password: " +usr.getPassword());
             if (usr.getEmail().equals(username) && usr.getPassword().equals(password))   {
                 session.setAttribute("username", username);

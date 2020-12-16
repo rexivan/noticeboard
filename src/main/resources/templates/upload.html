@@ -1,13 +1,11 @@
 <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <html lang="en">
-
-    <html xmlns:th="https://www.thymeleaf.org">
-    <meta charset="UTF-8">
-    <title>Upload dialog</title>
-    <head>
-</head>
-
+<head th:replace="fragments :: head" />
 <body>
+<div th:replace="fragments :: navbar" />
+
 <div th:if="${message}">
     <h2 th:text="${message}"/>
 </div>
@@ -21,6 +19,61 @@
     </form>
 </div>
 
+
+//---
+<!-- th:object="${advert}"
+-->
+<div class="container">
+    <form action="/AddUploadAdvert" th:object="${smalladvert}"  method="POST"  >
+        <div class="row">
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Title" th:field="${smalladvert.header}">            </div>
+            <div class="col">
+            </div>
+            <div class="col">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Price" th:field="${smalladvert.price}">
+            </div>
+            <div class="col">
+            </div>
+            <div class="col">
+
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="custom-file col ">
+                <input type="file" class="custom-file-input" id="customFile">
+                <label class="custom-file-label" for="customFile">Choose file</label>
+            </div>
+            <div class="col">
+            </div>
+            <div class="col">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <textarea type="text" class="form-control" placeholder="Description" th:field="${smalladvert.description}" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="row">
+        </div>
+        <div class="col" hidden>
+            <input type="text" class="form-control" placeholder="Advert Id">
+        </div>
+        <div class="col" hidden>
+            <input type="text" class="form-control" placeholder="User Id" >
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-lg btn-secondary btn-block">Save</button>
+
+//--
 <div>
     <ul>
         <li th:each="file : ${files}">
@@ -29,6 +82,9 @@
 
         </li>-->
     </ul>
+</div>
+
+    </form>
 </div>
 
 </body>
