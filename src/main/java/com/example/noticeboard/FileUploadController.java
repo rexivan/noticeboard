@@ -27,6 +27,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.noticeboard.storage.StorageFileNotFoundException;
 import com.example.noticeboard.storage.StorageService;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class FileUploadController {
     private String lastUploadedFile="";
@@ -39,7 +41,9 @@ public class FileUploadController {
 
     @GetMapping("/new")
     public String listUploadedFiles(Model model) throws IOException {
-
+     //   storageService.deleteAll();
+        SmallAdvert smalladvert = new SmallAdvert("Title", "Descr", 10);
+        model.addAttribute("smalladvert", smalladvert);
         model.addAttribute("files", storageService.loadAll().map(
                 path -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
                             "serveFile", path.getFileName().toString()).build().toUri().toString())
@@ -71,6 +75,27 @@ public class FileUploadController {
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
 
+        return "redirect:/new";
+    }
+
+    @PostMapping ("AddUploadAdvert")
+    public String handleFileUploadAddAdv(Model model, SmallAdvert smallAdvert , HttpSession session, /*@RequestParam("file") MultipartFile file,*/
+                                         RedirectAttributes redirectAttributes) {
+        System.out.println("*** File to upload:" + lastUploadedFile);
+        System.out.println("Small advert, Header:" + smallAdvert.getHeader());
+        System.out.println("Small advert, Price:" + smallAdvert.getPrice());
+        System.out.println("Small advert, Descr:" + smallAdvert.getDescription());
+
+        /*
+        lastUploadedFile = file.getOriginalFilename();
+
+        storageService.store(file);
+        String localFileName = "C:\\Users\\frbul\\Documents\\noticeboard\\upload-dir\\"+ file.getOriginalFilename();
+        AzureBlob.uploadFileToBlobStorage("hfsgUsJdgDUYrIXc8OefW2iYDUzrxKY7Pps4OSg8DogrXv5DYLh0NQaXd9xYeHVbGoJcncqh7bC7ZDUC2Z2lag==",
+                localFileName, file.getOriginalFilename());
+        redirectAttributes.addFlashAttribute("message",
+                "You successfully uploaded " + file.getOriginalFilename() + "!");
+*/
         return "redirect:/new";
     }
 
