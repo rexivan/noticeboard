@@ -11,8 +11,7 @@ public class AzureBlob {
 
     public static boolean uploadFileToBlobStorage(String accountKey, String localImageFile,  String destFileName)    {
         String storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=advertimages;AccountKey=" + accountKey + ";EndpointSuffix=core.windows.net";
-
-
+        System.out.println("in BLOB upload, file." + localImageFile);
         CloudStorageAccount storageAccount;
         CloudBlobClient blobClient = null;
         CloudBlobContainer container=null;
@@ -35,7 +34,7 @@ public class AzureBlob {
         }
         catch (Exception ex)
         {
-            System.out.println(ex.getMessage());
+            System.out.println("Blob Exception:" + ex.getMessage());
         }
         finally
         {
