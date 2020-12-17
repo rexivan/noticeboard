@@ -88,7 +88,7 @@
 
 <script>
 $(function () {
-      $('.SendEmail').click(function (event) {
+      $('.SendEmail(').click(function (event) {
         var email = 'john.doe@hm.com';
         var subject = 'Advert';
         var emailBody = 'Hi,';
@@ -103,6 +103,7 @@ $(function () {
 function sendEmail()
 {
     window.location = "mailto:Fredrik.BullSimonsen@hm.com";
+    window.location = "mailto:'" + "th:text="${advert.categoryId}";
 }
 </script>
 </body>

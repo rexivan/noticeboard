@@ -46,10 +46,6 @@ public class NoticeboardController {
     }
 
 
-    //*** End
-
-    //EmailClient emailClient = new EmailClient();
-
     @GetMapping("/")
     public String home(Model model, HttpSession session) {
         String username = (String)session.getAttribute("username");
@@ -286,6 +282,7 @@ public class NoticeboardController {
                 AzureBlob.uploadFileToBlobStorage("hfsgUsJdgDUYrIXc8OefW2iYDUzrxKY7Pps4OSg8DogrXv5DYLh0NQaXd9xYeHVbGoJcncqh7bC7ZDUC2Z2lag==",
                         localFileName, file.getOriginalFilename());
                 url =  "https://advertimages.blob.core.windows.net/images/" + file.getOriginalFilename();
+               // storageService.deleteAll();
             }
             Advert newAdvert = new Advert(0, smallAdvert.getHeader(), smallAdvert.getDescription(), smallAdvert.getPrice(), url, 1, 1, userRepository.userId, smallAdvert.getAdvertType());
                  advertRepository.addAdvert(newAdvert);
