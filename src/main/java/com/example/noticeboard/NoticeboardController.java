@@ -231,7 +231,7 @@ public class NoticeboardController {
      @GetMapping("/new")
         public String listUploadedFiles(Model model) throws IOException {
             //   storageService.deleteAll();
-            SmallAdvert smalladvert = new SmallAdvert("Title", "Descr", 10);
+            SmallAdvert smalladvert = new SmallAdvert("Title", "Descr", 10, 1);
             model.addAttribute("smalladvert", smalladvert);
             model.addAttribute("files", storageService.loadAll().map(
                     path -> MvcUriComponentsBuilder.fromMethodName(NoticeboardController.class,
@@ -285,7 +285,7 @@ public class NoticeboardController {
                         localFileName, file.getOriginalFilename());
                 url =  "https://advertimages.blob.core.windows.net/images/" + file.getOriginalFilename();
             }
-            Advert newAdvert = new Advert(0, smallAdvert.getHeader(), smallAdvert.getDescription(), smallAdvert.getPrice(), url, 1, 1, userRepository.userId, 1);
+            Advert newAdvert = new Advert(0, smallAdvert.getHeader(), smallAdvert.getDescription(), smallAdvert.getPrice(), url, 1, 1, userRepository.userId, smallAdvert.getAdvertType());
                  advertRepository.addAdvert(newAdvert);
 
             return "redirect:/new";
