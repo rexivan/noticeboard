@@ -24,6 +24,23 @@
     color: #000;
 }
 
+#textAreaLabel {
+    margin-top: 22px;
+    display: inline-block;
+    margin-bottom: .5rem;
+}
+
+#priceInputLabel{
+    margin-top: 22px;
+    display: inline-block;
+    margin-bottom: .5rem;
+}
+
+::placeholder {
+  color: white;
+}
+
+
 
 
 

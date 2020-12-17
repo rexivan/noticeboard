@@ -17,58 +17,74 @@
     <h2 th:text="${message}"/>
 </div>
 
-<div>
-    <form method="POST" enctype="multipart/form-data" action="/new">
-        <table>
-            <tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
-            <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
-        </table>
-    </form>
-</div>
 
 
-//---
+
+
 <!-- th:object="${advert}"
 -->
 <div class="container">
     <form action="/AddUploadAdvert" th:object="${smalladvert}"  method="POST"  >
         <div class="row">
             <div class="col">
-                <input type="text" class="form-control" placeholder="Title" th:field="${smalladvert.header}">            </div>
-            <div class="col">
+                <label for="titleInput">Title</label>
+                <input id="titleInput" type="text" class="form-control" placeholder="Title" th:field="${smalladvert.header}">
+                <label id="priceInputLabel" for="priceInput">Price</label>
+                <input id="priceInput" type="text" class="form-control" placeholder="Price" th:field="${smalladvert.price}" style="::placeholder{color: white;}">
+                <label id="textAreaLabel" for="textArea">Description</label>
+                <textarea id="textArea" type="text" class="form-control" placeholder="Description" th:field="${smalladvert.description}" rows="7"></textarea>
             </div>
             <div class="col">
+                <div>
+                    <ul style="padding:0;">
+                        <li th:each="file : ${files}" style="list-style-type: none;">
+                            <img th:src="${file}" height="400" width="350"/>
+                            <!---    <a th:href="${file}" th:text="${file}" />
+
+                            </li>-->
+                    </ul>
+                </div>
             </div>
+            <div class="col">
+                <div>
+                    <form method="POST" enctype="multipart/form-data" action="/new">
+
+                        <input type="file" name="file" />
+                        <input type="submit" value="Upload" />
+
+                    </form>
+                </div>
+            </div>
+
         </div>
 
         <div class="row">
             <div class="col">
-                <input type="text" class="form-control" placeholder="Price" th:field="${smalladvert.price}">
+
             </div>
             <div class="col">
+
             </div>
             <div class="col">
+
+
 
             </div>
 
         </div>
 
         <div class="row">
-            <div class="custom-file col ">
-                <input type="file" class="custom-file-input" id="customFile">
-                <label class="custom-file-label" for="customFile">Choose file</label>
-            </div>
+
+
+
+
             <div class="col">
             </div>
             <div class="col">
             </div>
         </div>
 
-        <div class="row">
-            <div class="col">
-                <textarea type="text" class="form-control" placeholder="Description" th:field="${smalladvert.description}" rows="3"></textarea>
-            </div>
-        </div>
+
         <div class="row">
         </div>
         <div class="col" hidden>
@@ -77,19 +93,21 @@
         <div class="col" hidden>
             <input type="text" class="form-control" placeholder="User Id" >
         </div>
-        <button type="submit" class="btn btn-primary">Save</button>
-        <button type="submit" class="btn btn-lg btn-secondary btn-block">Save</button>
 
-//--
-<div>
-    <ul>
-        <li th:each="file : ${files}">
-            <img th:src="${file}" height="400"/>
-        <!---    <a th:href="${file}" th:text="${file}" />
+        <div class="row">
+            <div class="col">
 
-        </li>-->
-    </ul>
-</div>
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-lg btn-secondary btn-block">Save</button>
+            </div>
+            <div class="col">
+            </div>
+        </div>
+        <!--<button type="submit" class="btn btn-lg btn-secondary btn-block">Save</button> -->
+
+
+
 
     </form>
 </div>
