@@ -24,7 +24,7 @@
 <!-- th:object="${advert}"
 -->
 <div class="container">
-    <form action="/AddUploadAdvert" th:object="${smalladvert}"  method="POST"  >
+    <form action="/AddUploadAdvert" th:object="${smalladvert}"  method="POST" enctype="multipart/form-data" >
         <div class="row">
             <div class="col">
                 <label for="titleInput">Title</label>
@@ -47,13 +47,8 @@
             </div>
             <div class="col">
                 <div>
-                    <form method="POST" enctype="multipart/form-data" action="/new">
-
                         <input type="file" name="file" />
-                        <input type="submit" value="Upload" />
-
-                    </form>
-                </div>
+           </div>
             </div>
 
         </div>
@@ -74,9 +69,6 @@
         </div>
 
         <div class="row">
-
-
-
 
             <div class="col">
             </div>
@@ -105,10 +97,6 @@
             </div>
         </div>
         <!--<button type="submit" class="btn btn-lg btn-secondary btn-block">Save</button> -->
-
-
-
-
     </form>
 </div>
 

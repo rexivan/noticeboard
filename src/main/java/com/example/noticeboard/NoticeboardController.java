@@ -1,17 +1,31 @@
 package com.example.noticeboard;
 
+import com.example.noticeboard.storage.StorageFileNotFoundException;
+import com.example.noticeboard.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class NoticeboardController {
@@ -22,7 +36,20 @@ public class NoticeboardController {
     @Autowired
     private UserRepository userRepository;// = new UserRepository();
 
+    //*** From FileUploadController
+    private String lastUploadedFile="";
+    private final StorageService storageService;
+
+    @Autowired
+    public NoticeboardController(StorageService storageService) {
+        this.storageService = storageService;
+    }
+
+
+    //*** End
+
     //EmailClient emailClient = new EmailClient();
+
     @GetMapping("/")
     public String home(Model model, HttpSession session) {
         String username = (String)session.getAttribute("username");
@@ -186,6 +213,7 @@ public class NoticeboardController {
         cookie.setMaxAge(0);
         res.addCookie(cookie);
     }
+
     @GetMapping("/deleteadvert/{id}")
     public String deleteAdd(Model model, @PathVariable int id, HttpSession session) {
 
@@ -195,10 +223,81 @@ public class NoticeboardController {
         return "redirect:/myadverts";
     }
     @GetMapping("/banner")
-    public String banner(){
+    public String banner() {
         return "banner";
     }
+        //****** Insert 13:20
+
+     @GetMapping("/new")
+        public String listUploadedFiles(Model model) throws IOException {
+            //   storageService.deleteAll();
+            SmallAdvert smalladvert = new SmallAdvert("Title", "Descr", 10);
+            model.addAttribute("smalladvert", smalladvert);
+            model.addAttribute("files", storageService.loadAll().map(
+                    path -> MvcUriComponentsBuilder.fromMethodName(NoticeboardController.class,
+                            "serveFile", path.getFileName().toString()).build().toUri().toString())
+                    .collect(Collectors.toList()));
+            return "upload";
+        }
+
+        @GetMapping("/files/{filename:.+}")
+        @ResponseBody
+        public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+            System.out.println("--- File to load as resource:" + filename);
+            Resource file = storageService.loadAsResource(filename);// Save under unique name:  ImgAdvertId.jpg
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+                    "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+        }
+
+        @PostMapping("/new")
+        public String handleFileUpload(@RequestParam("file") MultipartFile file,
+                RedirectAttributes redirectAttributes) {
+
+            // lastUploadedFile = file.getOriginalFilename();
+            System.out.println("*** File to upload:" + lastUploadedFile);
+
+            storageService.store(file);
+
+            redirectAttributes.addFlashAttribute("message",
+                    "You successfully uploaded " + file.getOriginalFilename() + "!");
+            //  lastAddedImageList.add(file.getOriginalFilename());
+
+            return "redirect:/new";
+        }
+
+        @PostMapping ("AddUploadAdvert")
+        public String handleFileUploadAddAdv(Model model, SmallAdvert smallAdvert , HttpSession session, @RequestParam("file") MultipartFile file,
+                RedirectAttributes redirectAttributes) throws IOException {
+            System.out.println("*** File to upload:" + file);
+            System.out.println("Small advert, Header:" + smallAdvert.getHeader());
+            System.out.println("Small advert, Price:"  + smallAdvert.getPrice());
+            System.out.println("Small advert, Descr:"  + smallAdvert.getDescription());
+            String url = "";
+            if (file != null) {
+                storageService.store(file);
+                Path aPath = storageService.load("");
+
+                String fullPath =  new java.io.File( "." ).getCanonicalPath() + "\\" + aPath;
+                String localFileName = fullPath + "\\" +  file.getOriginalFilename();   //"C:\\Users\\frbul\\Documents\\noticeboard\\upload-dir\\"+ file.getOriginalFilename();
+                System.out.println("Local FULL file name:" + localFileName);
+
+                AzureBlob.uploadFileToBlobStorage("hfsgUsJdgDUYrIXc8OefW2iYDUzrxKY7Pps4OSg8DogrXv5DYLh0NQaXd9xYeHVbGoJcncqh7bC7ZDUC2Z2lag==",
+                        localFileName, file.getOriginalFilename());
+                url =  "https://advertimages.blob.core.windows.net/images/" + file.getOriginalFilename();
+            }
+            Advert newAdvert = new Advert(0, smallAdvert.getHeader(), smallAdvert.getDescription(), smallAdvert.getPrice(), url, 1, 1, userRepository.userId, 1);
+                 advertRepository.addAdvert(newAdvert);
+
+            return "redirect:/new";
+        }
+
+        @ExceptionHandler(StorageFileNotFoundException.class)
+        public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException exc) {
+            return ResponseEntity.notFound().build();
+        }
+
 }
+
 
 
 
