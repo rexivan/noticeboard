@@ -30,10 +30,14 @@
 
             </div>
             <div class="col-md-6">
+                <p id="priceId" ><b>Price:</b></p>
+                <div style="overflow: hidden;width: fit-content;">
+
+                    <p th:text="${advert.price}" style="float: left;"></p>
+                    <p style="float: right;">kr</p>
+                </div>
 
 
-
-                <p id="priceId"><b>Price:</b></p> <p th:text="${advert.price}"></p>
                 <p><b>Advert category:</b><br/>For Sale</p>
                 <p id="descId"><b>Description:</b>
                 <p th:text="${advert.description}" - Description/>

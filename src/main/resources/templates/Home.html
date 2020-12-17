@@ -4,7 +4,7 @@
 <html lang="en">
 <head th:replace="fragments :: head" />
 
-<body>
+<body class="backgroundBody2">
 <button onclick="topFunction()" id="myBtn" title="Go to top">▲</button>
 
     <div th:replace="fragments :: navbar" />
@@ -20,7 +20,11 @@
                 <h5 class="mt-0 mb-1" th:text="${ad.header}"></h5>
 
                 <p th:text="${ad.description}"></p>
-                     <p th:text="${ad.price}"></p>
+                    <div style="overflow: hidden;width: fit-content;">
+                        <p th:text="${ad.price}" style="float: left;"></p>
+                        <p id="kronorP" style="float: right;">kr</p>
+                    </div>
+
                 </div>
 
                     <hr />

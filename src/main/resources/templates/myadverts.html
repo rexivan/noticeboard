@@ -7,12 +7,12 @@
 
 <div th:replace="fragments :: navbar" />
 <div class="container adListContainer">
-
+<h2>My Adverts</h2>
     <ul class="list-unstyled">
         <div class="adListObject" th:each="ad : ${advertList}" th:href="'/advert/' + ${ad.id}" style="">
             <a class="mt-0 mb-1" th:href="'/advert/' + ${ad.id}" >
                 <li class="media adListList">
-                    <img class="mr-3" th:src="${ad.url}" alt="Generic placeholder image" width="203" height="135">
+                    <img class="mr-3" th:src="${ad.url}" alt="Generic placeholder image" width="180" height="135">
                     <div class="media-body">
                         <h5 class="mt-0 mb-1" th:text="${ad.header}"></h5>
 

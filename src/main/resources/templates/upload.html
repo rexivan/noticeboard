@@ -24,32 +24,33 @@
 <!-- th:object="${advert}"
 -->
 <div class="container">
+    <h2>Create Advert</h2>
     <form action="/AddUploadAdvert" th:object="${smalladvert}"  method="POST" enctype="multipart/form-data" >
         <div class="row">
-            <div class="col">
+            <div class="col-6">
                 <label for="titleInput">Title</label>
                 <input id="titleInput" type="text" class="form-control" placeholder="Title" th:field="${smalladvert.header}">
                 <label id="priceInputLabel" for="priceInput">Price</label>
                 <input id="priceInput" type="text" class="form-control" placeholder="Price" th:field="${smalladvert.price}" style="::placeholder{color: white;}">
                 <label id="textAreaLabel" for="textArea">Description</label>
                 <textarea id="textArea" type="text" class="form-control" placeholder="Description" th:field="${smalladvert.description}" rows="7"></textarea>
+                <div>
+                    <label for="fileInput" style="margin-top: 22px;">Photo</label><br/>
+                    <input type="file" id="fileInput" name="file" />
+                </div>
             </div>
-            <div class="col">
+            <div class="col-6">
                 <div>
                     <ul style="padding:0;">
                         <li th:each="file : ${files}" style="list-style-type: none;">
-                            <img th:src="${file}" height="400" width="350"/>
+                            <img th:src="${file}" id="uploadImage" height="400" width="350"/>
                             <!---    <a th:href="${file}" th:text="${file}" />
 
                             </li>-->
                     </ul>
                 </div>
             </div>
-            <div class="col">
-                <div>
-                        <input type="file" name="file" />
-           </div>
-            </div>
+
 
         </div>
 
@@ -57,23 +58,10 @@
             <div class="col">
 
             </div>
-            <div class="col">
-
-            </div>
-            <div class="col">
-
-
-
-            </div>
-
         </div>
 
         <div class="row">
 
-            <div class="col">
-            </div>
-            <div class="col">
-            </div>
         </div>
 
 
