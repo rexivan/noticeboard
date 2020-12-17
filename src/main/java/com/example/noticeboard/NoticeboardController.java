@@ -101,7 +101,7 @@ public class NoticeboardController {
 
         User user = userRepository.findById(advert.getUserId());
         model.addAttribute("user", user);
-        return "advert";
+        return "Advert";
     }
 
     @GetMapping("/AddAdvert")
@@ -276,9 +276,11 @@ public class NoticeboardController {
             if (file != null) {
                 storageService.store(file);
                 Path aPath = storageService.load("");
+                String pathSeparator = "/"; // Linux
+                //String pathSeparator = "\\"; // Windows
 
-                String fullPath =  new java.io.File( "." ).getCanonicalPath() + "\\" + aPath;
-                String localFileName = fullPath + "\\" +  file.getOriginalFilename();   //"C:\\Users\\frbul\\Documents\\noticeboard\\upload-dir\\"+ file.getOriginalFilename();
+                String fullPath =  new java.io.File( "." ).getCanonicalPath() + pathSeparator + aPath;
+                String localFileName = fullPath + pathSeparator+  file.getOriginalFilename();   //"C:\\Users\\frbul\\Documents\\noticeboard\\upload-dir\\"+ file.getOriginalFilename();
                 System.out.println("Local FULL file name:" + localFileName);
 
                 AzureBlob.uploadFileToBlobStorage("hfsgUsJdgDUYrIXc8OefW2iYDUzrxKY7Pps4OSg8DogrXv5DYLh0NQaXd9xYeHVbGoJcncqh7bC7ZDUC2Z2lag==",
