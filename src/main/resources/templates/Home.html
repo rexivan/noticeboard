@@ -15,11 +15,12 @@
             <div class="adListObject" th:each="ad : ${advertList}" th:href="'/advert/' + ${ad.id}" style="">
                 <a class="mt-0 mb-1" th:href="'/advert/' + ${ad.id}" >
                 <li class="media adListList">
-                <img class="mr-3" th:src="${ad.url}" alt="Generic placeholder image" width="118" height="135">
+                <img class="mr-3" th:src="${ad.url}" alt="Generic placeholder image" width="180" height="135">
                 <div class="media-body">
                 <h5 class="mt-0 mb-1" th:text="${ad.header}"></h5>
 
                 <p th:text="${ad.description}"></p>
+                     <p th:text="${ad.price}"></p>
                 </div>
 
                     <hr />
