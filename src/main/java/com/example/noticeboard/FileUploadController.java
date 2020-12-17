@@ -6,6 +6,8 @@ package com.example.noticeboard;
 //package com.example.uploadingfiles;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,7 @@ import javax.servlet.http.HttpSession;
 public class FileUploadController {
     private String lastUploadedFile="";
     private final StorageService storageService;
+  //  private List<String> lastAddedImageList = new List<String>;
 
     @Autowired
     public FileUploadController(StorageService storageService) {
@@ -65,7 +68,7 @@ public class FileUploadController {
     public String handleFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
 
-        lastUploadedFile = file.getOriginalFilename();
+       // lastUploadedFile = file.getOriginalFilename();
         System.out.println("*** File to upload:" + lastUploadedFile);
 
         storageService.store(file);
@@ -74,6 +77,7 @@ public class FileUploadController {
                localFileName, file.getOriginalFilename());
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
+      //  lastAddedImageList.add(file.getOriginalFilename());
 
         return "redirect:/new";
     }
@@ -85,6 +89,13 @@ public class FileUploadController {
         System.out.println("Small advert, Header:" + smallAdvert.getHeader());
         System.out.println("Small advert, Price:" + smallAdvert.getPrice());
         System.out.println("Small advert, Descr:" + smallAdvert.getDescription());
+
+        String url =  "https://advertimages.blob.core.windows.net/images/" + lastUploadedFile;
+        Advert newAdvert = new Advert(0, smallAdvert.getHeader(), smallAdvert.getDescription(), smallAdvert.getPrice(),url, 1, 1, 1, 1);
+        AdvertRepository advertRepository = new AdvertRepository();
+        advertRepository.addAdvert(newAdvert);
+
+
 
         /*
         lastUploadedFile = file.getOriginalFilename();
